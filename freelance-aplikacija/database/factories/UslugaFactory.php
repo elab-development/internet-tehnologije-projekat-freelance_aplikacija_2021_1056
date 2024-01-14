@@ -19,8 +19,20 @@ class UslugaFactory extends Factory
      */
     public function definition(): array
     {
+        $usluge = [
+            'Personalni trener u teretani NSF',
+            'Privatni trener tenisa',
+            'TikTok video editor',
+            'Instagram menadzer profila',
+            'Pravljene sajtova',
+            'Snimanje personalizovanih reklama za velike brendove',
+            'Obucar',
+            'Hemijsko ciscenje',
+            'Izrada diplomskih radova'
+        ];
+
         return [
-            'naziv' => $this->faker->word().' '.$this->faker->word(), 
+            'naziv' => $this->faker->randomElement($usluge), 
             'opis' => $this->faker->sentence(),
             'grad' => $this->faker->city(),
             'adresa' => $this->faker->streetAddress(),

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tipovi_usluga', function (Blueprint $table) {
             $table->id();
             $table->string('naziv',60);
-            $table->string('opis',100);
+            $table->string('opis',500);
             $table->timestamps();
         });
     }

@@ -16,8 +16,17 @@ class TipUslugeFactory extends Factory
      */
     public function definition(): array
     {
+
+        $tipovi = [
+            'Sport',
+            'Drustvene mreze',
+            'Editorske usluge',
+            'Finansijske usluge',
+            'Pravne usluge',
+        ];
+
         return [
-            'naziv' => $this->faker->word().' '.$this->faker->word(), 
+            'naziv' => $this->faker->randomElement($tipovi), 
             'opis' => $this->faker->sentence(),
         ];
     }
