@@ -42,4 +42,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    public function uslugeKojeSeKupuju() {
+        return $this->hasMany(Usluga::class, 'user_kupuje_id', 'id');
+    }
+
+    public function uslugeKojeSeProdaju() {
+        return $this->hasMany(Usluga::class, 'user_prodaje_id', 'id');
+    }
 }

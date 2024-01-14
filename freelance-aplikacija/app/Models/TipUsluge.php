@@ -15,4 +15,9 @@ class TipUsluge extends Model
         'naziv',
         'opis', 
     ];
+
+    
+    public function usluge() {
+        return $this->hasMany(Usluga::class);
+    }
 }
