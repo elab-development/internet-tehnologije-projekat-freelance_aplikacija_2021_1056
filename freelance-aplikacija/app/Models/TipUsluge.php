@@ -9,7 +9,7 @@ class TipUsluge extends Model
 {
     use HasFactory;
 
-    protected $table = 'tip_usluga';
+    protected $table = 'tipovi_usluga';
 
     protected $fillable = [
         'naziv',

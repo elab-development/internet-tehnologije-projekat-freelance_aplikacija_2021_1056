@@ -16,6 +16,7 @@ class Usluga extends Model
         'opis', 
         'grad',
         'adresa',
+        'cena',
         'user_prodaje_id',
         'user_kupuje_id',
         'tip_usluge_id', 
