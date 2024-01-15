@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\UslugaResource;
 use App\Models\Usluga;
 
+use Illuminate\Support\Facades\Auth;
 
 class UslugaController extends Controller
 {
@@ -25,6 +26,8 @@ class UslugaController extends Controller
     //Okaci oglas za prodaju usluge
     public function okaciOglasZaProdaju(Request $request)
     {
+    
+    $user_id = Auth::user()->id; 
 
     $validator = Validator::make($request->all(), [
         'naziv' => 'required',
@@ -57,6 +60,7 @@ class UslugaController extends Controller
     //Kupi oglas
         public function kupiUsluguNaOglasu(Request $request, $id)
         {
+        $user_id = Auth::user()->id; 
     
         $usluga = Usluga::findOrFail($id);
         $usluga->user_kupuje_id = $user_id;
@@ -68,6 +72,7 @@ class UslugaController extends Controller
     //Azuriraj oglas za prodaju
     public function update(Request $request, $id)
     {
+
         $validator = Validator::make($request->all(), [
             'naziv' => 'required',
             'opis' => 'required',
@@ -80,6 +85,12 @@ class UslugaController extends Controller
         if ($validator->fails()) {
             $errors = $validator->errors();
             return response()->json($errors);
+        }
+
+        $usluga_user_id = Usluga::where('id', $id)->value('user_id');
+
+        if($user_id != $usluga_user_id){
+            return response()->json(['error' => 'NEOVLASCEN PRISTUP: Dati korisnik nije kreator ovog oglasa za uslugu!'], 403);
         }
 
         $usluga = Usluga::findOrFail($id);
@@ -102,6 +113,12 @@ class UslugaController extends Controller
             'opis' => 'required'
         ]);
 
+        $usluga_user_id = Usluga::where('id', $id)->value('user_id');
+
+        if($user_id != $usluga_user_id){
+            return response()->json(['error' => 'NEOVLASCEN PRISTUP: Dati korisnik nije kreator ovog oglasa za uslugu!'], 403);
+        }
+
         $usluga = Usluga::findOrFail($id);
 
         $usluga->update(['opis' => $request->input('opis')]);
@@ -115,6 +132,11 @@ class UslugaController extends Controller
 //Obrisi odredjenu uslugu na osnovu ID-ija
     public function destroy($id)
     {
+        $usluga_user_id = Usluga::where('id', $id)->value('user_id');
+
+        if($user_id != $usluga_user_id){
+            return response()->json(['error' => 'NEOVLASCEN PRISTUP: Dati korisnik nije kreator ovog oglasa za uslugu!'], 403);
+        }
         $usluga = Usluga::findOrFail($id);
         $usluga->delete();
         return response()->json('Data usluga je uspesno obrisana!');
