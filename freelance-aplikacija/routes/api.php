@@ -22,6 +22,8 @@ use App\Http\Controllers\TipUslugeController;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
+Route::post('resetPassword',[AuthController::class,'resetPassword']);
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //RESOURCE RUTA
@@ -37,9 +39,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //ruta za gledanje kesiranih usluga
    Route::get('/cached-usluge', [UslugaController::class, 'showCachedUsluge']);
-
-    Route::get('users', [UslugaController::class, 'index']);
-
+    
+   Route::get('users', [UserController::class, 'index']);
+   
     Route::post('logout', [AuthController::class, 'logout']);
 
 });
+
