@@ -10,14 +10,32 @@ use App\Models\Usluga;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Support\Facades\Cache;
+
 class UslugaController extends Controller
 {
     //Prikazi sve usluge
     public function index()
     {
-        $usluge = Usluga::all();
-        return UslugaResource::collection($usluge);
+        $usluge = Cache::remember('all_usluge', now()->addDay(), function () { 
+           return Usluga::all();
+        });
+        return response()->json([
+            'usluge' => $usluge
+        ], 200);
     }
+
+    //PRIKAZI KESIRANE PODATKE
+    public function showCachedUsluge()
+{
+    $cachedUsluge = Cache::get('all_usluge');
+
+    return response()->json([
+        'cached_usluge' => $cachedUsluge
+    ], 200);
+}
+
+
     //Prikazi odredjenu uslugu na osnovu ID-ija
     public function show($id)
     {

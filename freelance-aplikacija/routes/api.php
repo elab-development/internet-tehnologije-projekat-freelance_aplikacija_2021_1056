@@ -35,6 +35,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::patch('usluge/izmeniCenu/{id}', [UslugaController::class, 'updateCenu']);
     Route::delete('usluge/{id}', [UslugaController::class, 'destroy']);
 
+    //ruta za gledanje kesiranih usluga
+   Route::get('/cached-usluge', [UslugaController::class, 'showCachedUsluge']);
+
     Route::get('users', [UslugaController::class, 'index']);
 
     Route::post('logout', [AuthController::class, 'logout']);
