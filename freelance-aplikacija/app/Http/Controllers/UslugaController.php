@@ -8,6 +8,7 @@ use App\Http\Resources\UslugaResource;
 use App\Models\Usluga;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UslugaController extends Controller
 {
@@ -31,7 +32,7 @@ class UslugaController extends Controller
 
     $validator = Validator::make($request->all(), [
         'naziv' => 'required',
-        'opis' => 'required',
+        'cena' => 'required',
         'grad' => 'required',
         'adresa' => 'required',
         'cena' => 'required',
@@ -44,13 +45,13 @@ class UslugaController extends Controller
 
     $usluga = new Usluga();
     $usluga->naziv = $request->naziv;
-    $usluga->opis = $request->opis;
+    $usluga->cena = $request->cena;
     $usluga->grad = $request->grad;
     $usluga->adresa = $request->adresa;
     $usluga->cena = $request->cena;
     $usluga->tip_usluge_id = $request->tip_usluge_id;
     $usluga->user_prodaje_id = $user_id;
-    $usluga->user_kupuje_id = -1;
+    $usluga->user_kupuje_id = null;
 
     $usluga->save();
 
@@ -72,10 +73,11 @@ class UslugaController extends Controller
     //Azuriraj oglas za prodaju
     public function update(Request $request, $id)
     {
+        $user_id = Auth::user()->id; 
 
         $validator = Validator::make($request->all(), [
             'naziv' => 'required',
-            'opis' => 'required',
+            'cena' => 'required',
             'grad' => 'required',
             'adresa' => 'required',
             'cena' => 'required',
@@ -87,7 +89,7 @@ class UslugaController extends Controller
             return response()->json($errors);
         }
 
-        $usluga_user_id = Usluga::where('id', $id)->value('user_id');
+        $usluga_user_id = Usluga::where('id', $id)->value('user_prodaje_id');
 
         if($user_id != $usluga_user_id){
             return response()->json(['error' => 'NEOVLASCEN PRISTUP: Dati korisnik nije kreator ovog oglasa za uslugu!'], 403);
@@ -96,7 +98,7 @@ class UslugaController extends Controller
         $usluga = Usluga::findOrFail($id);
 
         $usluga->naziv = $request->naziv;
-        $usluga->opis = $request->opis;
+        $usluga->cena = $request->cena;
         $usluga->grad = $request->grad;
         $usluga->adresa = $request->adresa;
         $usluga->cena = $request->cena;
@@ -109,11 +111,13 @@ class UslugaController extends Controller
 //Izmeni samo cenu
     public function updateCenu(Request $request, $id)
     {
+        $user_id = Auth::user()->id; 
+
         $request->validate([
-            'opis' => 'required'
+            'cena' => 'required'
         ]);
 
-        $usluga_user_id = Usluga::where('id', $id)->value('user_id');
+        $usluga_user_id = Usluga::where('id', $id)->value('user_prodaje_id');
 
         if($user_id != $usluga_user_id){
             return response()->json(['error' => 'NEOVLASCEN PRISTUP: Dati korisnik nije kreator ovog oglasa za uslugu!'], 403);
@@ -121,9 +125,9 @@ class UslugaController extends Controller
 
         $usluga = Usluga::findOrFail($id);
 
-        $usluga->update(['opis' => $request->input('opis')]);
+        $usluga->update(['cena' => $request->input('cena')]);
 
-        return response()->json(['message' => 'Uspesno izmenjen opis usluge.', new UslugaResource($usluga)]);
+        return response()->json(['message' => 'Uspesno izmenjena cena usluge.', new UslugaResource($usluga)]);
     }
 
 
@@ -132,7 +136,9 @@ class UslugaController extends Controller
 //Obrisi odredjenu uslugu na osnovu ID-ija
     public function destroy($id)
     {
-        $usluga_user_id = Usluga::where('id', $id)->value('user_id');
+        $user_id = Auth::user()->id; 
+
+        $usluga_user_id = Usluga::where('id', $id)->value('user_prodaje_id');
 
         if($user_id != $usluga_user_id){
             return response()->json(['error' => 'NEOVLASCEN PRISTUP: Dati korisnik nije kreator ovog oglasa za uslugu!'], 403);

@@ -3,6 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UslugaController;
+use App\Http\Controllers\TipUslugeController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +19,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    //RESOURCE RUTA
+    Route::resource('tipovi_usluga', TipUslugeController::class, ['only' => ['index', 'show']]);
+
+    Route::get('usluge', [UslugaController::class, 'index']);
+    Route::get('usluge/{id}', [UslugaController::class, 'show']); 
+    Route::post('usluge/okaciOglasZaProdaju', [UslugaController::class, 'okaciOglasZaProdaju']);
+    Route::post('usluge/kupiUsluguNaOglasu/{id}', [UslugaController::class, 'kupiUsluguNaOglasu']);
+    Route::put('usluge/{id}', [UslugaController::class, 'update']); 
+    Route::patch('usluge/izmeniCenu/{id}', [UslugaController::class, 'updateCenu']);
+    Route::delete('usluge/{id}', [UslugaController::class, 'destroy']);
+
+    Route::get('users', [UslugaController::class, 'index']);
+
+    Route::post('logout', [AuthController::class, 'logout']);
+
 });
