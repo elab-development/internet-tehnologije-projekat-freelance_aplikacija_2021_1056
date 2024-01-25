@@ -6,6 +6,7 @@ import Register from './components/RegisterPage';
 import NavBar from './components/NavBar';
 import WelcomePage from './components/WelcomePage';
 import Usluge from './components/usluge/Usluge';
+import About from './components/About';
 
 function App()  {
 
@@ -59,6 +60,10 @@ function App()  {
               <Route 
                 path="/usluge" 
                 element={<Usluge />} 
+                />
+                 <Route 
+                path="/about" 
+                element={<About />} 
                 />
             </Routes>
           </div>
