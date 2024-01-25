@@ -1,0 +1,33 @@
+.usluga {
+    background-color: #3498db;  
+    color: #ecf0f1;  
+    border: 1px solid #2980b9;
+    padding: 16px;
+    margin: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 100%;
+    transition: box-shadow 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .usluga:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #2d6e9a;
+    opacity: 90%;
+  }
+  
+  .usluga h2 {
+    color: #ecf0f1; 
+    margin-bottom: 8px;
+  }
+  
+  .usluga p {
+    color: #ecf0f1; 
+    margin-bottom: 4px;
+  }
+  
+  .usluga p:last-child {
+    margin-bottom: 0;
+  }
