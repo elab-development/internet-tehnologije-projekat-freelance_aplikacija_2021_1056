@@ -1,12 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import './Usluga.css'; 
 
 const Usluga = ({ usluga }) => {
-  const navigate = useNavigate();
-
-
-
+ 
   return (
     <div className="usluga">
      <h2>{usluga.naziv}</h2>

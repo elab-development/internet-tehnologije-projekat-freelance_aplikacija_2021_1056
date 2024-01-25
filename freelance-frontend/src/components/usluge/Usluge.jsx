@@ -6,7 +6,8 @@ import useUsluge from '../hooks/useUsluge';
 const Usluge = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const uslugePerPage = 4;
+  const [searchQuery, setSearchQuery] = useState('');
+  const uslugePerPage = 3;
 
   const usluge = useUsluge('http://127.0.0.1:8000/api/usluge');
   console.log('Podaci o uslugama:', usluge);
@@ -17,11 +18,21 @@ const Usluge = () => {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = () => {
+    setCurrentPage(1);
+    setSearchQuery(searchTerm);
+  };
+
+  const handleResetSearch = () => {
+    setSearchTerm('');
+    setSearchQuery('');
     setCurrentPage(1);
   };
 
   const filteredUsluge = usluge.filter(usluga =>
-    usluga.naziv.toLowerCase().includes(searchTerm.toLowerCase())
+    usluga.naziv.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const indexOfLastUsluga = currentPage * uslugePerPage;
@@ -41,6 +52,8 @@ const Usluge = () => {
             onChange={handleSearchChange}
             className="search-input"
           />
+          <button onClick={handleSearchSubmit} className="search-button">Pretraži</button>
+          <button onClick={handleResetSearch} className="reset-button">Resetuj pretragu</button>
         </div>
         <div className='usluge-section'>
           {currentUsluge.length > 0 ? (
@@ -57,6 +70,14 @@ const Usluge = () => {
               {index + 1}
             </button>
           ))}
+        </div>
+        <div className="navigation-buttons">
+          <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+            Nazad
+          </button>
+          <button onClick={() => paginate(currentPage + 1)} disabled={currentPage === Math.ceil(filteredUsluge.length / uslugePerPage)}>
+            Napred
+          </button>
         </div>
       </div>
     </>
