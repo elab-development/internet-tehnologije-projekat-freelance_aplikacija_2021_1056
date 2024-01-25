@@ -1,0 +1,93 @@
+.usluge {
+    background-image: url('https://geekflare.com/wp-content/uploads/2022/09/best-people-search-tools.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
+    color: #ecf0f1;
+    height: 1100px;
+  }
+  
+  .usluge-search {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .search-input {
+    width: 80%;
+    padding: 8px;
+    margin-right: 8px;
+    border-radius: 5px;
+  }
+
+  .search-button,
+  .reset-button,
+  .page-number
+ {
+    padding: 8px 12px;
+    background-color: #3498db;
+    border: none;
+    color: #ecf0f1;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .search-button:hover,
+  .reset-button:hover,
+  .page-number:hover
+ {
+    background-color: #2980b9;
+
+  }
+  
+  .pagination {
+    display: flex;
+    gap: 15px;
+    margin-left: 10px;
+  }
+  
+  .navigation-buttons {
+    margin-top: 16px;
+    margin-left: 10px;
+  }
+
+  .pagination,
+.navigation-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pagination button,
+.navigation-buttons button {
+  padding: 8px 12px;
+  background-color: #3498db;
+  color: #ecf0f1;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.pagination button:hover,
+.navigation-buttons button:hover {
+  background-color: #2980b9;
+}
+
+.pagination button[disabled],
+.navigation-buttons button[disabled] {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+}
+  
+  .usluge-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: space-between;
+    width: 80%;
+  }
+  
+  
