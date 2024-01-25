@@ -23,13 +23,14 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::post('resetPassword',[AuthController::class,'resetPassword']);
+Route::get('usluge', [UslugaController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //RESOURCE RUTA
     Route::resource('tipovi_usluga', TipUslugeController::class, ['only' => ['index', 'show']]);
 
-    Route::get('usluge', [UslugaController::class, 'index']);
+    
     Route::get('usluge/{id}', [UslugaController::class, 'show']); 
     Route::post('usluge/okaciOglasZaProdaju', [UslugaController::class, 'okaciOglasZaProdaju']);
     Route::post('usluge/kupiUsluguNaOglasu/{id}', [UslugaController::class, 'kupiUsluguNaOglasu']);

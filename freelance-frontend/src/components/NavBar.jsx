@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import '../CSS/NavBar.css';
 import { useNavigate } from 'react-router-dom';
 
-function NavBar({ loggedInUser, handleLogout, search }) {
+function NavBar({ loggedInUser, handleLogout }) {
 
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ function NavBar({ loggedInUser, handleLogout, search }) {
                   <Link to='/welcome'>Home Page </Link>
                 </li>
                 <li className="nav__item">
-                  <Link to='/objects'>Services </Link>
+                  <Link to='/usluge'>Services </Link>
                 </li>
                 <li className="nav__item">
                   <Link to='/about'>About </Link>

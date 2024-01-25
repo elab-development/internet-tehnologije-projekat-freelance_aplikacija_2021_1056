@@ -5,7 +5,6 @@ import slide2 from '../slike/slide2.jpg';
 import slide3 from '../slike/slide3.png';
 import slide4 from '../slike/slide4.webp';
 import '../CSS/WelcomePage.css';
-import NavBar from './NavBar';
 
 const WelcomePage = () => {
   //koriscenje custom kuke

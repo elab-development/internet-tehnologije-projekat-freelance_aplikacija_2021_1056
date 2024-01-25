@@ -17,12 +17,9 @@ class UslugaController extends Controller
     //Prikazi sve usluge
     public function index()
     {
-        $usluge = Cache::remember('all_usluge', now()->addDay(), function () { 
-           return Usluga::all();
-        });
-        return response()->json([
-            'usluge' => $usluge
-        ], 200);
+        $usluge = Usluga::all();
+    
+        return response()->json(['usluge' => $usluge]);
     }
 
     //PRIKAZI KESIRANE PODATKE
