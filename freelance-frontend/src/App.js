@@ -5,6 +5,7 @@ import Login from './components/LoginPage';
 import Register from './components/RegisterPage';
 import NavBar from './components/NavBar';
 import WelcomePage from './components/WelcomePage';
+import Usluge from './components/usluge/Usluge';
 
 function App()  {
 
@@ -54,6 +55,10 @@ function App()  {
               <Route 
                 path="/welcome" 
                 element={<WelcomePage loggedInUser={loggedInUser} />} 
+                />
+              <Route 
+                path="/usluge" 
+                element={<Usluge />} 
                 />
             </Routes>
           </div>
