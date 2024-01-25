@@ -5,13 +5,14 @@ import slide2 from '../slike/slide2.jpg';
 import slide3 from '../slike/slide3.png';
 import slide4 from '../slike/slide4.webp';
 import '../CSS/WelcomePage.css';
+import Footer from './Footer';
 
 const WelcomePage = () => {
   //koriscenje custom kuke
   const { currentSlide, slides, goToNextSlide, goToPrevSlide } = useSlideshow([slide1, slide2, slide3, slide4]);
 
   return (
-    
+    <>
     <div>
       <div className="home-container">
         <div className="slideshow">
@@ -26,6 +27,8 @@ const WelcomePage = () => {
         </div>
       </div>
     </div>
+    <Footer></Footer>
+    </>
     
   );
 

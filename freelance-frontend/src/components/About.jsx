@@ -1,6 +1,7 @@
 import React from 'react';
 import useTipoviUsluga from './hooks/useTipoviUsluga';
 import '../CSS/About.css';
+import Footer from './Footer';
 
 const About = () => {
   const tipoviUsluga = useTipoviUsluga('http://127.0.0.1:8000/api/tipovi_usluga');
@@ -11,6 +12,7 @@ const About = () => {
   }
 
   return (
+    <>
     <div className="about">
         <div className='about-text'>
             <h2>Opis aplikacije </h2>
@@ -31,6 +33,8 @@ const About = () => {
       </ul>
       </div>
     </div>
+    <Footer></Footer>
+    </>
   );
 };
 

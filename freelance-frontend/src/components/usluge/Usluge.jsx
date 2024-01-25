@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Usluga from './Usluga';
 import './Usluge.css';
 import useUsluge from '../hooks/useUsluge';
+import Footer from '../Footer';
 
 const Usluge = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -80,6 +81,7 @@ const Usluge = () => {
           </button>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };
