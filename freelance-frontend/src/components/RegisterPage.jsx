@@ -7,6 +7,7 @@ const Register = ({ onRegister }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('nudi'); // Default role
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -16,6 +17,7 @@ const Register = ({ onRegister }) => {
         name,
         email,
         password,
+        role,
       });
 
       if (response.data.Poruka === 'Uspesna registracija!') {
@@ -60,6 +62,16 @@ const Register = ({ onRegister }) => {
           onChange={(e) => setPassword(e.target.value)}
           className="register-form-input"
         />
+        <label htmlFor="registerRole" className="register-form-label">Role:</label>
+        <select
+          id="registerRole"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="register-form-input"
+        >
+          <option value="nudi">Nudim uslugu</option>
+          <option value="trazi">Tražim uslugu</option>
+        </select>
         <button onClick={handleRegister} className="register-form-button">REGISTER</button>
 
         {error && <p className="error-message">{error}</p>}

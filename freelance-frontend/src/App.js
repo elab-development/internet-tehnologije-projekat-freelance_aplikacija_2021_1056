@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import WelcomePage from './components/WelcomePage';
 import Usluge from './components/usluge/Usluge';
 import About from './components/About';
+import MyUsluge from './components/usluge/MojeUsluge/MyUsluge';
 
 function App()  {
 
@@ -60,6 +61,10 @@ function App()  {
               <Route 
                 path="/usluge" 
                 element={<Usluge />} 
+                />
+                <Route 
+                path="/mojeUsluge" 
+                element={<MyUsluge />} 
                 />
                  <Route 
                 path="/about" 

@@ -26,8 +26,11 @@ Route::post('resetPassword',[AuthController::class,'resetPassword']);
 Route::get('usluge', [UslugaController::class, 'index']);
 Route::resource('tipovi_usluga', TipUslugeController::class, ['only' => ['index', 'show']]);
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+ 
 
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/moje-usluge', [UslugaController::class, 'mojeUsluge']);
     
     Route::get('usluge/{id}', [UslugaController::class, 'show']); 
     Route::post('usluge/okaciOglasZaProdaju', [UslugaController::class, 'okaciOglasZaProdaju']);

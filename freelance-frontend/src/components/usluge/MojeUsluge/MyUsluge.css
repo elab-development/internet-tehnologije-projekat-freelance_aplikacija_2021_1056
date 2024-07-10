@@ -1,0 +1,28 @@
+.my-usluge {
+    margin: 20px;
+  }
+  
+  .usluge-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .usluge-table th,
+  .usluge-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .usluge-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .usluge-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .usluge-table tr:hover {
+    background-color: #ddd;
+  }
+  

@@ -162,4 +162,25 @@ class UslugaController extends Controller
         $usluga->delete();
         return response()->json('Data usluga je uspesno obrisana!');
     }
+
+
+    // Prikazi usluge koje nudi ulogovani korisnik
+    public function mojeUsluge()
+    {
+        $user = Auth::user();
+        if ($user->role !== 'nudi') {
+            return response()->json(['error' => 'Samo korisnici sa ulogom "nudi" mogu pristupiti ovoj funkciji!'], 403);
+        }
+
+        $usluge = Usluga::where('user_prodaje_id', $user->id)->get();
+
+        return response()->json(['usluge' => UslugaResource::collection($usluge)]);
+    }
+
+
+
+
+
+
+
 }
