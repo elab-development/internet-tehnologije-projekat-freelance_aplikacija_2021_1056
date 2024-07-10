@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 import '../CSS/LoginPage.css';
 
-const Login = ({ onLogin, users }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ onLogin }) => {
+  const [username, setUsername] = useState('kathryn.crona@example.org');
+  const [password, setPassword] = useState('password');
+  const [error, setError] = useState(null);
 
-  const handleLogin = () => {
-    const user = users.find(
-      (user) => user.username === username && user.password === password
-    );
-    if (user) {
-      onLogin(username);
-    } else {
-      alert('Bad credentials, try again!');
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/login', {
+        email: username,
+        password,
+      });
+
+      if (response.data.Poruka === "Uspesna prijava!") {
+        // Save token to session storage
+        sessionStorage.setItem('token', response.data['Token: ']);
+        sessionStorage.setItem('loggedInUser', JSON.stringify(response.data['User: ']));
+
+       // onLogin(response.data['User: ']);
+      } else {
+        setError('Bad credentials, try again!');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again later.');
     }
   };
 
@@ -41,7 +53,8 @@ const Login = ({ onLogin, users }) => {
         />
         <button onClick={handleLogin} className="login-form-button">LOGIN</button>
 
-        {/* Message for registration */}
+        {error && <p className="error-message">{error}</p>}
+
         <p style={{ marginTop: '10px' }}>If you don't have an account, click <Link to="/register">here</Link> to register.</p>
       </div>
     </div>
