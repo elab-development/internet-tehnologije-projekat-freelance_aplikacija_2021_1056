@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Usluga from './Usluga';
 import './Usluge.css';
 import useUsluge from '../hooks/useUsluge';
@@ -8,14 +9,25 @@ const Usluge = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currency, setCurrency] = useState('RSD');
+  const [exchangeRates, setExchangeRates] = useState({});
   const uslugePerPage = 3;
 
   const usluge = useUsluge('http://127.0.0.1:8000/api/usluge');
   console.log('Podaci o uslugama:', usluge);
 
-  if (!usluge) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    const fetchExchangeRates = async () => {
+      try {
+        const response = await axios.get('https://api.exchangerate-api.com/v4/latest/RSD');
+        setExchangeRates(response.data.rates);
+      } catch (error) {
+        console.error('Error fetching exchange rates:', error);
+      }
+    };
+
+    fetchExchangeRates();
+  }, []);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -30,6 +42,15 @@ const Usluge = () => {
     setSearchTerm('');
     setSearchQuery('');
     setCurrentPage(1);
+  };
+
+  const handleCurrencyChange = (e) => {
+    setCurrency(e.target.value);
+  };
+
+  const convertPrice = (price) => {
+    if (!exchangeRates[currency]) return price;
+    return (price * exchangeRates[currency]).toFixed(2);
   };
 
   const filteredUsluge = usluge.filter(usluga =>
@@ -56,10 +77,20 @@ const Usluge = () => {
           <button onClick={handleSearchSubmit} className="search-button">Pretraži</button>
           <button onClick={handleResetSearch} className="reset-button">Resetuj pretragu</button>
         </div>
+        <div className='currency-selector'>
+          <label htmlFor="currency">Odaberi valutu: </label>
+          <select id="currency" value={currency} onChange={handleCurrencyChange}>
+            {Object.keys(exchangeRates).map((currencyCode) => (
+              <option key={currencyCode} value={currencyCode}>
+                {currencyCode}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className='usluge-section'>
           {currentUsluge.length > 0 ? (
             currentUsluge.map(usluga => (
-              <Usluga key={usluga.id} usluga={usluga} />
+              <Usluga key={usluga.id} usluga={usluga} convertPrice={convertPrice} currency={currency} />
             ))
           ) : (
             <div>Nema dostupnih usluga.</div>
@@ -81,7 +112,7 @@ const Usluge = () => {
           </button>
         </div>
       </div>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 };

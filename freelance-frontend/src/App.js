@@ -37,7 +37,7 @@ function App()  {
     return (
         <BrowserRouter>
           <div className="App">
-            {loggedInUser && <NavBar loggedInUser={loggedInUser} handleLogout={handleLogout} />}
+            {true && <NavBar loggedInUser={loggedInUser} handleLogout={handleLogout} />}
             <Routes>
               <Route
                 path="/"
