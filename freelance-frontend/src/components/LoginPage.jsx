@@ -19,6 +19,7 @@ const Login = ({ onLogin }) => {
         // Save token to session storage
         sessionStorage.setItem('token', response.data['Token: ']);
         sessionStorage.setItem('loggedInUser', JSON.stringify(response.data['User: ']));
+        sessionStorage.setItem('loggedInUserId', JSON.stringify(response.data['User: '].id));
 
         onLogin(response.data['User: ']);
       } else {

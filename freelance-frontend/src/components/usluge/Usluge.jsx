@@ -12,6 +12,7 @@ const Usluge = () => {
   const [currency, setCurrency] = useState('RSD');
   const [exchangeRates, setExchangeRates] = useState({});
   const uslugePerPage = 3;
+  const loggedInUserId = sessionStorage.getItem('user_id'); // Pretpostavimo da je user_id sačuvan u sessionStorage
 
   const usluge = useUsluge('http://127.0.0.1:8000/api/usluge');
   console.log('Podaci o uslugama:', usluge);
@@ -90,7 +91,7 @@ const Usluge = () => {
         <div className='usluge-section'>
           {currentUsluge.length > 0 ? (
             currentUsluge.map(usluga => (
-              <Usluga key={usluga.id} usluga={usluga} convertPrice={convertPrice} currency={currency} />
+              <Usluga key={usluga.id} usluga={usluga} convertPrice={convertPrice} currency={currency} loggedInUserId={loggedInUserId} />
             ))
           ) : (
             <div>Nema dostupnih usluga.</div>

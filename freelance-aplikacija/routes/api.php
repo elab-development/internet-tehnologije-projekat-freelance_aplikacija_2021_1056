@@ -50,7 +50,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
     //dodate rute za seminarski za ponudu
-    Route::post('/ponude', [PonudaController::class, 'create']);
+    Route::post('/ponude', [PonudaController::class, 'store']);
     Route::get('/usluge/{usluga_id}/ponude', [PonudaController::class, 'index']);
     Route::delete('/ponude/{id}', [PonudaController::class, 'delete']);
 });
