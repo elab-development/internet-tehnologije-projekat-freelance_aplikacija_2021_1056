@@ -20,7 +20,7 @@ const Login = ({ onLogin }) => {
         sessionStorage.setItem('token', response.data['Token: ']);
         sessionStorage.setItem('loggedInUser', JSON.stringify(response.data['User: ']));
 
-       // onLogin(response.data['User: ']);
+        onLogin(response.data['User: ']);
       } else {
         setError('Bad credentials, try again!');
       }

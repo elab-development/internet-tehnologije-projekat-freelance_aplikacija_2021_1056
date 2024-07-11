@@ -1,28 +1,86 @@
 .my-usluge {
-    margin: 20px;
+    padding: 20px;
+    background-color: #ecf0f1; /* Svetla pozadina za celokupnu sekciju */
+    color: #2c3e50; /* Tamnija boja teksta */
+    border-radius: 8px; /* Blago zaobljeni uglovi */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Blaga senka za efekat dubine */
+    max-width: 1200px; /* Maksimalna širina sekcije */
+    margin: auto; /* Centriranje sekcije */
   }
   
   .usluge-table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: collapse; /* Uklanjanje praznina između ćelija */
+    margin-bottom: 20px; /* Razmak ispod tabele */
   }
   
   .usluge-table th,
   .usluge-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
+    border: 1px solid #bdc3c7; /* Svetlo siva ivica za ćelije */
+    padding: 12px; /* Unutrašnji razmak ćelija */
+    text-align: left; /* Poravnanje teksta levo */
   }
   
   .usluge-table th {
-    background-color: #f2f2f2;
-    text-align: left;
+    background-color: #3498db; /* Plava pozadina za zaglavlje */
+    color: #ecf0f1; /* Svetla boja teksta za zaglavlje */
+  }
+  
+  .usluge-table td {
+    background-color: #ecf0f1; /* Svetla pozadina za ćelije */
+    color: #2c3e50; /* Tamna boja teksta za ćelije */
   }
   
   .usluge-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background-color: #f2f2f2; /* Blaga naizmenična pozadina za redove */
   }
   
   .usluge-table tr:hover {
-    background-color: #ddd;
+    background-color: #d9e4ea; /* Svetlija pozadina pri prelasku miša */
+  }
+  
+  .usluga-form {
+    margin-top: 20px; /* Razmak iznad forme */
+    padding: 20px; /* Unutrašnji razmak forme */
+    background-color: #ecf0f1; /* Svetla pozadina forme */
+    border: 1px solid #bdc3c7; /* Svetlo siva ivica za formu */
+    border-radius: 8px; /* Blago zaobljeni uglovi */
+  }
+  
+  .usluga-form h3 {
+    margin-bottom: 20px; /* Razmak ispod naslova forme */
+    color: #2c3e50; /* Tamnija boja naslova */
+  }
+  
+  .usluga-form input,
+  .usluga-form select,
+  .usluga-form button {
+    display: block; /* Blok prikaz za elemente */
+    width: 100%; /* Puna širina elemenata */
+    padding: 10px; /* Unutrašnji razmak elemenata */
+    margin-bottom: 10px; /* Razmak ispod elemenata */
+    border: 1px solid #bdc3c7; /* Svetlo siva ivica za elemente */
+    border-radius: 4px; /* Blago zaobljeni uglovi */
+  }
+  
+  .usluga-form input:focus,
+  .usluga-form select:focus,
+  .usluga-form button:focus {
+    outline: none; /* Uklanjanje standardnog fokusa */
+    border-color: #3498db; /* Plava ivica pri fokusu */
+  }
+  
+  .usluga-form button {
+    background-color: #3498db; /* Plava pozadina za dugme */
+    color: #ecf0f1; /* Svetla boja teksta za dugme */
+    cursor: pointer; /* Pokazivač ruke pri prelasku miša */
+  }
+  
+  .usluga-form button:hover {
+    background-color: #2980b9; /* Tamnija plava pri prelasku miša */
+  }
+  
+  .usluga-form button:active {
+    background-color: #1e6fa1; /* Još tamnija plava pri kliku */
   }
   

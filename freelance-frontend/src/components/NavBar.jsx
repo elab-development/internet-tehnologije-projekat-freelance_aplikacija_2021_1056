@@ -47,6 +47,9 @@ function NavBar({ loggedInUser, handleLogout }) {
                 <Link to="/about">About </Link>
               </li>
               <li className="nav__item">
+                <Link to="/mojeUsluge">Moje usluge </Link>
+              </li>
+              <li className="nav__item">
                 {loggedInUser}{' '}
                 <button className="logout-button" onClick={handleLogoutClick}>
                   Logout
