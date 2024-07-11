@@ -6,6 +6,8 @@ const Ponude = ({ uslugaId, closeDetails }) => {
   const [ponude, setPonude] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
     const fetchPonude = async () => {
@@ -27,6 +29,28 @@ const Ponude = ({ uslugaId, closeDetails }) => {
     fetchPonude();
   }, [uslugaId]);
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSortOrderChange = (e) => {
+    setSortOrder(e.target.value);
+  };
+
+  const filteredPonude = ponude
+    .filter(ponuda => 
+      ponuda.opis.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      ponuda.user.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      ponuda.user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return a.cena - b.cena;
+      } else {
+        return b.cena - a.cena;
+      }
+    });
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -34,6 +58,21 @@ const Ponude = ({ uslugaId, closeDetails }) => {
     <div className="ponude">
       <button onClick={closeDetails}>Zatvori</button>
       <h2>Ponude za Uslugu {uslugaId}</h2>
+      
+      <div className="ponude-controls">
+        <input 
+          type="text" 
+          placeholder="Pretraži ponude..." 
+          value={searchTerm} 
+          onChange={handleSearchChange} 
+          className="search-input"
+        />
+        <select value={sortOrder} onChange={handleSortOrderChange} className="sort-select">
+          <option value="asc">Cena rastuće</option>
+          <option value="desc">Cena opadajuće</option>
+        </select>
+      </div>
+
       <table className="ponude-table">
         <thead>
           <tr>
@@ -46,7 +85,7 @@ const Ponude = ({ uslugaId, closeDetails }) => {
           </tr>
         </thead>
         <tbody>
-          {ponude.map((ponuda) => (
+          {filteredPonude.map((ponuda) => (
             <tr key={ponuda.id}>
               <td>{ponuda.id}</td>
               <td>{ponuda.opis}</td>
