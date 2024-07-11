@@ -38,9 +38,15 @@ class PonudaController extends Controller
 
     public function index($usluga_id)
     {
-        $ponude = Ponuda::where('usluga_id', $usluga_id)->get();
+        $ponude = Ponuda::with('user')->where('usluga_id', $usluga_id)->get();
+    
+        foreach ($ponude as $ponuda) {
+            $ponuda->cv_url = asset('storage/' . $ponuda->cv);
+        }
+    
         return response()->json(['ponude' => $ponude]);
     }
+    
 
     public function delete($id)
     {

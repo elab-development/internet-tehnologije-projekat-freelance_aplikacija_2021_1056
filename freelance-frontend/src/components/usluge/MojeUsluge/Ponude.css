@@ -1,0 +1,35 @@
+.ponude {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  .ponude h2 {
+    margin-bottom: 20px;
+  }
+  
+  .ponude-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .ponude-table th, .ponude-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .ponude-table th {
+    background-color: #3498db;
+    color: white;
+    text-align: left;
+  }
+  
+  .ponude-table td a {
+    color: #3498db;
+  }
+  
+  .ponude-table td a:hover {
+    text-decoration: underline;
+  }
+  

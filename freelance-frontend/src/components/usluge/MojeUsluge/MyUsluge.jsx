@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
 import './MyUsluge.css';
 import useTipoviUsluga from '../../hooks/useTipoviUsluga';
+import Ponude from './Ponude';
+ 
 
 const MyUsluge = () => {
   const [usluge, setUsluge] = useState([]);
@@ -14,6 +16,8 @@ const MyUsluge = () => {
   const [cena, setCena] = useState('');
   const [tipUslugeId, setTipUslugeId] = useState('');
   const [editingId, setEditingId] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [selectedUslugaId, setSelectedUslugaId] = useState(null);
   const tipoviUsluga = useTipoviUsluga('http://127.0.0.1:8000/api/tipovi_usluga');
 
   useEffect(() => {
@@ -94,6 +98,16 @@ const MyUsluge = () => {
     setTipUslugeId('');
   };
 
+  const handleShowDetails = (id) => {
+    setSelectedUslugaId(id);
+    setShowDetails(true);
+  };
+
+  const handleCloseDetails = () => {
+    setSelectedUslugaId(null);
+    setShowDetails(false);
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -132,6 +146,7 @@ const MyUsluge = () => {
                   setTipUslugeId(usluga.tip_usluge_id);
                 }}>Izmeni</button>
                 <button onClick={() => handleDeleteUsluga(usluga.id)}>Obriši</button>
+                <button onClick={() => handleShowDetails(usluga.id)}>Detalji</button>
               </td>
             </tr>
           ))}
@@ -182,6 +197,12 @@ const MyUsluge = () => {
           {editingId ? 'Izmeni' : 'Dodaj'}
         </button>
       </div>
+
+      {showDetails && (
+        <div className="details-modal">
+          <Ponude uslugaId={selectedUslugaId} closeDetails={handleCloseDetails} />
+        </div>
+      )}
     </div>
   );
 };
