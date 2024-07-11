@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PonudaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UslugaController;
 use App\Http\Controllers\TipUslugeController;
@@ -46,5 +47,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
    
     Route::post('logout', [AuthController::class, 'logout']);
 
+
+
+    //dodate rute za seminarski za ponudu
+    Route::post('/ponude', [PonudaController::class, 'create']);
+    Route::get('/usluge/{usluga_id}/ponude', [PonudaController::class, 'index']);
+    Route::delete('/ponude/{id}', [PonudaController::class, 'delete']);
 });
 
