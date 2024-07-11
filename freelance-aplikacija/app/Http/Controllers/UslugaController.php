@@ -50,6 +50,7 @@ class UslugaController extends Controller
         'cena' => 'required',
         'grad' => 'required',
         'adresa' => 'required',
+        'opis' => 'required',
         'cena' => 'required',
         'tip_usluge_id' => 'required',
     ]);
@@ -64,14 +65,14 @@ class UslugaController extends Controller
     $usluga->grad = $request->grad;
     $usluga->adresa = $request->adresa;
     $usluga->cena = $request->cena;
+    $usluga->opis = $request->opis; 
     $usluga->tip_usluge_id = $request->tip_usluge_id;
     $usluga->user_prodaje_id = $user_id;
     $usluga->user_kupuje_id = null;
 
     $usluga->save();
 
-    return response()->json(['Okacio oglas za prodaju!!!',
-         new UslugaResource($usluga)]);
+    return response()->json(  new UslugaResource($usluga) );
     }
     //Kupi oglas
         public function kupiUsluguNaOglasu(Request $request, $id)
@@ -94,6 +95,7 @@ class UslugaController extends Controller
             'naziv' => 'required',
             'cena' => 'required',
             'grad' => 'required',
+            'opis' => 'required',
             'adresa' => 'required',
             'cena' => 'required',
             'tip_usluge_id' => 'required',
@@ -117,11 +119,12 @@ class UslugaController extends Controller
         $usluga->grad = $request->grad;
         $usluga->adresa = $request->adresa;
         $usluga->cena = $request->cena;
+        $usluga->opis = $request->opis; 
         $usluga->tip_usluge_id = $request->tip_usluge_id;
 
         $usluga->save();
 
-        return response()->json(['Usluga je uspesno izmenjena!', new UslugaResource($usluga)]);
+        return response()->json(  new UslugaResource($usluga) );
     }
 //Izmeni samo cenu
     public function updateCenu(Request $request, $id)

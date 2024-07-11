@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from 'axios'; 
 import './MyUsluge.css';
+import useTipoviUsluga from '../../hooks/useTipoviUsluga';
 
 const MyUsluge = () => {
   const [usluge, setUsluge] = useState([]);
@@ -13,6 +14,7 @@ const MyUsluge = () => {
   const [cena, setCena] = useState('');
   const [tipUslugeId, setTipUslugeId] = useState('');
   const [editingId, setEditingId] = useState(null);
+  const tipoviUsluga = useTipoviUsluga('http://127.0.0.1:8000/api/tipovi_usluga');
 
   useEffect(() => {
     const fetchUsluge = async () => {
@@ -37,7 +39,7 @@ const MyUsluge = () => {
   const handleAddUsluga = async () => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await axios.post('http://127.0.0.1:8000/api/okaciOglasZaProdaju', {
+      const response = await axios.post('http://127.0.0.1:8000/api/usluge/okaciOglasZaProdaju', {
         naziv, opis, grad, adresa, cena, tip_usluge_id: tipUslugeId
       }, {
         headers: {
@@ -45,12 +47,7 @@ const MyUsluge = () => {
         }
       });
       setUsluge([...usluge, response.data]);
-      setNaziv('');
-      setOpis('');
-      setGrad('');
-      setAdresa('');
-      setCena('');
-      setTipUslugeId('');
+      resetForm();
     } catch (err) {
       setError('Failed to add usluga. Please try again later.');
     }
@@ -68,12 +65,7 @@ const MyUsluge = () => {
       });
       setUsluge(usluge.map(usluga => usluga.id === id ? response.data : usluga));
       setEditingId(null);
-      setNaziv('');
-      setOpis('');
-      setGrad('');
-      setAdresa('');
-      setCena('');
-      setTipUslugeId('');
+      resetForm();
     } catch (err) {
       setError('Failed to update usluga. Please try again later.');
     }
@@ -91,6 +83,15 @@ const MyUsluge = () => {
     } catch (err) {
       setError('Failed to delete usluga. Please try again later.');
     }
+  };
+
+  const resetForm = () => {
+    setNaziv('');
+    setOpis('');
+    setGrad('');
+    setAdresa('');
+    setCena('');
+    setTipUslugeId('');
   };
 
   if (loading) return <p>Loading...</p>;
@@ -169,12 +170,14 @@ const MyUsluge = () => {
           value={cena}
           onChange={(e) => setCena(e.target.value)}
         />
-        <input
-          type="text"
-          placeholder="Tip Usluge ID"
-          value={tipUslugeId}
-          onChange={(e) => setTipUslugeId(e.target.value)}
-        />
+        <select value={tipUslugeId} onChange={(e) => setTipUslugeId(e.target.value)}>
+          <option value="">Izaberi Tip Usluge</option>
+          {tipoviUsluga.map(tip => (
+            <option key={tip.id} value={tip.id}>
+              {tip.naziv}
+            </option>
+          ))}
+        </select>
         <button onClick={editingId ? () => handleUpdateUsluga(editingId) : handleAddUsluga}>
           {editingId ? 'Izmeni' : 'Dodaj'}
         </button>
