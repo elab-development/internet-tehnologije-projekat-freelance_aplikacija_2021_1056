@@ -8,6 +8,7 @@ import WelcomePage from './components/WelcomePage';
 import Usluge from './components/usluge/Usluge';
 import About from './components/About';
 import MyUsluge from './components/usluge/MojeUsluge/MyUsluge';
+import Statistike from './components/Admin/Statistike';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -64,7 +65,10 @@ function App() {
           />
           <Route path="/usluge" element={<Usluge />} />
           <Route path="/mojeUsluge" element={<MyUsluge />} />
+          <Route path="/statistike" element={<Statistike />} />
+
           <Route path="/about" element={<About />} />
+
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,7 +48,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
    
     Route::post('logout', [AuthController::class, 'logout']);
 
-
+    Route::get('/admin/statistike', [AdminController::class, 'statistike']);
 
     //dodate rute za seminarski za ponudu
     Route::post('/ponude', [PonudaController::class, 'store']);
