@@ -35,31 +35,44 @@ function NavBar({ loggedInUser, handleLogout }) {
           <h1>FREELANCE APP</h1>
         </div>
         <ul className="nav__list">
+          <li className="nav__item">
+            <Link to="/welcome">Welcome</Link>
+          </li>
+          <li className="nav__item">
+            <Link to="/about">About</Link>
+          </li>
           {loggedInUser ? (
             <>
+              {loggedInUser.role === 'nudi' && (
+                <li className="nav__item">
+                  <Link to="/mojeUsluge">Moje usluge</Link>
+                </li>
+              )}
+              {loggedInUser.role === 'trazi' && (
+                <li className="nav__item">
+                  <Link to="/usluge">Services</Link>
+                </li>
+              )}
+              {loggedInUser.role === 'admin' && (
+                <li className="nav__item">
+                  <Link to="/statistike">Statistike</Link>
+                </li>
+              )}
               <li className="nav__item">
-                <Link to="/welcome">Home Page </Link>
-              </li>
-              <li className="nav__item">
-                <Link to="/usluge">Services </Link>
-              </li>
-              <li className="nav__item">
-                <Link to="/about">About </Link>
-              </li>
-              <li className="nav__item">
-                <Link to="/mojeUsluge">Moje usluge </Link>
-              </li>
-              <li className="nav__item">
-                {loggedInUser}{' '}
                 <button className="logout-button" onClick={handleLogoutClick}>
                   Logout
                 </button>
               </li>
             </>
           ) : (
-            <li className="nav__item">
-              <Link to="/">Login</Link>
-            </li>
+            <>
+              <li className="nav__item">
+                <Link to="/">Login</Link>
+              </li>
+              <li className="nav__item">
+                <Link to="/register">Register</Link>
+              </li>
+            </>
           )}
         </ul>
       </nav>

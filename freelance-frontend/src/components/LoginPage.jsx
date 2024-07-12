@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../CSS/LoginPage.css';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('kathryn.crona@example.org');
   const [password, setPassword] = useState('password');
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -21,7 +22,17 @@ const Login = ({ onLogin }) => {
         sessionStorage.setItem('loggedInUser', JSON.stringify(response.data['User: ']));
         sessionStorage.setItem('loggedInUserId', JSON.stringify(response.data['User: '].id));
 
-        onLogin(response.data['User: ']);
+        const user = response.data['User: '];
+        onLogin(user);
+
+        // Redirect based on user role
+        if (user.role === 'nudi') {
+          navigate('/mojeUsluge');
+        } else if (user.role === 'trazi') {
+          navigate('/usluge');
+        } else if (user.role === 'admin') {
+          navigate('/statistike');
+        }
       } else {
         setError('Bad credentials, try again!');
       }

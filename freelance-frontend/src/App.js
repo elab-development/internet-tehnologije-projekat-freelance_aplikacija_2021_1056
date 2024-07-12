@@ -12,17 +12,17 @@ import Statistike from './components/Admin/Statistike';
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('token');
-    if (token) {
-      setLoggedInUser(true);
+    const loggedUserJSON = sessionStorage.getItem('loggedInUser');
+    if (loggedUserJSON) {
+      setLoggedInUser(JSON.parse(loggedUserJSON));
     }
   }, []);
 
-  const handleLogin = () => {
-    setLoggedInUser(true);
+  const handleLogin = (user) => {
+    setLoggedInUser(user);
   };
 
   const handleRegister = (newUser) => {
@@ -36,8 +36,9 @@ function App() {
   };
 
   const handleLogout = () => {
-    setLoggedInUser(false);
+    setLoggedInUser(null);
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('loggedInUser');
   };
 
   return (
@@ -51,13 +52,13 @@ function App() {
               loggedInUser ? (
                 <Navigate to="/welcome" />
               ) : (
-                <Login onLogin={handleLogin} users={users} />
+                <Login onLogin={handleLogin} />
               )
             }
           />
           <Route
             path="/register"
-            element={<Register onRegister={handleRegister} users={users} />}
+            element={<Register onRegister={handleRegister} />}
           />
           <Route
             path="/welcome"
@@ -66,9 +67,7 @@ function App() {
           <Route path="/usluge" element={<Usluge />} />
           <Route path="/mojeUsluge" element={<MyUsluge />} />
           <Route path="/statistike" element={<Statistike />} />
-
           <Route path="/about" element={<About />} />
-
         </Routes>
       </div>
     </BrowserRouter>
