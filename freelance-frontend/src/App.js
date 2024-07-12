@@ -9,6 +9,7 @@ import Usluge from './components/usluge/Usluge';
 import About from './components/About';
 import MyUsluge from './components/usluge/MojeUsluge/MyUsluge';
 import Statistike from './components/Admin/Statistike';
+import FreelanceJobs from './components/usluge/FreelanceJobs';
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -68,6 +69,8 @@ function App() {
           <Route path="/mojeUsluge" element={<MyUsluge />} />
           <Route path="/statistike" element={<Statistike />} />
           <Route path="/about" element={<About />} />
+          <Route path="/freelancejobs" element={<FreelanceJobs />} />
+
         </Routes>
       </div>
     </BrowserRouter>
