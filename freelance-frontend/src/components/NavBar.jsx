@@ -41,6 +41,9 @@ function NavBar({ loggedInUser, handleLogout }) {
           <li className="nav__item">
             <Link to="/about">About</Link>
           </li>
+          <li className="nav__item">
+            <Link to="/freelancejobs">JOBS</Link>
+          </li>
           {loggedInUser ? (
             <>
               {loggedInUser.role === 'nudi' && (
