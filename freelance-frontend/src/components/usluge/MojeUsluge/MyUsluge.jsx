@@ -15,6 +15,7 @@ const MyUsluge = () => {
   const [adresa, setAdresa] = useState('');
   const [cena, setCena] = useState('');
   const [tipUslugeId, setTipUslugeId] = useState('');
+  const [novaKategorija, setNovaKategorija] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [selectedUslugaId, setSelectedUslugaId] = useState(null);
@@ -44,7 +45,7 @@ const MyUsluge = () => {
     try {
       const token = sessionStorage.getItem('token');
       const response = await axios.post('http://127.0.0.1:8000/api/usluge/okaciOglasZaProdaju', {
-        naziv, opis, grad, adresa, cena, tip_usluge_id: tipUslugeId
+        naziv, opis, grad, adresa, cena, tip_usluge_id: tipUslugeId, nova_kategorija: novaKategorija
       }, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -193,6 +194,12 @@ const MyUsluge = () => {
             </option>
           ))}
         </select>
+        <input
+          type="text"
+          placeholder="Nova Kategorija (ako ne postoji)"
+          value={novaKategorija}
+          onChange={(e) => setNovaKategorija(e.target.value)}
+        />
         <button onClick={editingId ? () => handleUpdateUsluga(editingId) : handleAddUsluga}>
           {editingId ? 'Izmeni' : 'Dodaj'}
         </button>

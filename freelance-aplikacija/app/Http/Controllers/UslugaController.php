@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\UslugaResource;
+use App\Models\TipUsluge;
 use App\Models\Usluga;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class UslugaController extends Controller
 {
@@ -42,37 +44,51 @@ class UslugaController extends Controller
     //Okaci oglas za prodaju usluge
     public function okaciOglasZaProdaju(Request $request)
     {
-    
-    $user_id = Auth::user()->id; 
+        $user_id = Auth::user()->id; 
 
-    $validator = Validator::make($request->all(), [
-        'naziv' => 'required',
-        'cena' => 'required',
-        'grad' => 'required',
-        'adresa' => 'required',
-        'opis' => 'required',
-        'cena' => 'required',
-        'tip_usluge_id' => 'required',
-    ]);
+        $validator = Validator::make($request->all(), [
+            'naziv' => 'required',
+            'cena' => 'required',
+            'grad' => 'required',
+            'adresa' => 'required',
+            'opis' => 'required',
+            'tip_usluge_id' => 'nullable',
+            'nova_kategorija' => 'nullable|string'
+        ]);
 
-    if ($validator->fails()) {
-        return response()->json($validator->errors());
-    }
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
 
-    $usluga = new Usluga();
-    $usluga->naziv = $request->naziv;
-    $usluga->cena = $request->cena;
-    $usluga->grad = $request->grad;
-    $usluga->adresa = $request->adresa;
-    $usluga->cena = $request->cena;
-    $usluga->opis = $request->opis; 
-    $usluga->tip_usluge_id = $request->tip_usluge_id;
-    $usluga->user_prodaje_id = $user_id;
-    $usluga->user_kupuje_id = null;
+        DB::beginTransaction();
 
-    $usluga->save();
+        try {
+            $tip_usluge_id = $request->tip_usluge_id;
 
-    return response()->json(  new UslugaResource($usluga) );
+            if (!$tip_usluge_id && $request->nova_kategorija) {
+                $novaKategorija = TipUsluge::firstOrCreate(['naziv' => $request->nova_kategorija]);
+                $tip_usluge_id = $novaKategorija->id;
+            }
+
+            $usluga = new Usluga();
+            $usluga->naziv = $request->naziv;
+            $usluga->cena = $request->cena;
+            $usluga->grad = $request->grad;
+            $usluga->adresa = $request->adresa;
+            $usluga->opis = $request->opis; 
+            $usluga->tip_usluge_id = $tip_usluge_id;
+            $usluga->user_prodaje_id = $user_id;
+            $usluga->user_kupuje_id = null;
+
+            $usluga->save();
+
+            DB::commit();
+
+            return response()->json(new UslugaResource($usluga));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => 'Failed to create usluga. Please try again later.'], 500);
+        }
     }
     //Kupi oglas
         public function kupiUsluguNaOglasu(Request $request, $id)
