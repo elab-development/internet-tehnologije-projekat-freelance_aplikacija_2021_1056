@@ -1,0 +1,72 @@
+
+.login-form, .login-form h2, .login-form label, .login-form input, .login-form button {
+    font-family: 'Teko', sans-serif;
+}
+
+
+.login-form {
+    max-width: 100%;
+    padding: 180px;
+    background-image: url('https://wallpaperaccess.com/full/846241.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: white;
+    margin: 0;
+}
+
+.login-form-data {
+    background: linear-gradient(to top, #00c6fb 0%, #005bea 100%);;
+    text-align: center;
+    max-width: 30%;
+    padding: 20px;
+    margin: 90px auto;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 96%;
+}
+
+.login-form h2 {
+    margin-bottom: 15px;
+    color: #02093B; 
+    font-size: 40px;
+}
+
+.login-form label {
+    width: 70%;
+    text-align: left;
+    margin-bottom: 5px;
+    color: #02093B; 
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 70%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ADA9BA; 
+    border-radius: 3px;
+    font-size: 20px;
+}
+
+.login-form button {
+    width: 50%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background: radial-gradient(484px at 49.4% 19%, rgb(23, 156, 214) 0%, rgb(52, 48, 111) 100.2%);; 
+    color: #02093B;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    font-size: 23px;
+}
+
+.login-form button:hover {
+    background: #ADA9BA; 
+}

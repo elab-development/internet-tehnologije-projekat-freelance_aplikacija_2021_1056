@@ -1,0 +1,33 @@
+.freelance-jobs {
+    font-family: Arial, sans-serif;
+  }
+  
+  .freelance-jobs ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .freelance-jobs li {
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .freelance-jobs h3 {
+    margin: 0 0 5px;
+  }
+  
+  .freelance-jobs p {
+    margin: 5px 0;
+  }
+  
+  .freelance-jobs a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .freelance-jobs a:hover {
+    text-decoration: underline;
+  }
+  
